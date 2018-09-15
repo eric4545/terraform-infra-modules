@@ -1,0 +1,20 @@
+.terragrunt-cache
+
+# TF secrets variable
+secrets.tfvars
+
+# Compiled files
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
+*.tfstate.lock.info
+
+# Directories
+.terraform/
+.vagrant/
+
+# SSH Keys
+*.pem
+
+# Backup files
+*.bak
