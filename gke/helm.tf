@@ -21,11 +21,12 @@ resource "null_resource" "install_helm" {
   provisioner "local-exec" {
     command = <<SCRIPT
     helm init \
-    --service-account tiller \
-    --tiller-namespace tiller-system \
-    --wait \
-    --upgrade \
-    --kube-context=${local.kube_context} && \
+      --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}' \
+      --service-account tiller \
+      --tiller-namespace tiller-system \
+      --wait \
+      --upgrade \
+      --kube-context=${local.kube_context} && \
     helm repo update
 SCRIPT
   }
