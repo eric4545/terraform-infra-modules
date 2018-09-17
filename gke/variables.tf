@@ -78,16 +78,31 @@ variable "cert_manager_version" {
   default     = "0.4.1"
 }
 
+variable "cert_manager_enabled" {
+  description = "Enable Cert manager"
+  default     = true
+}
+
 variable "stackdriver_adapter_version" {
   description = "custom metrics stackdriver adapter version"
   type        = "string"
   default     = "0.8.0"
 }
 
+variable "stackdriver_adapter_enabled" {
+  description = "Enable custom metrics stackdriver adapter"
+  default     = true
+}
+
 variable "external_dns_version" {
   description = "external-dns chart version"
   type        = "string"
   default     = "0.7.5"
+}
+
+variable "external_dns_enabled" {
+  description = "Enable external-dns"
+  default     = true
 }
 
 variable "kubernetes_dashboard_version" {

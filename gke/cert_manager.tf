@@ -1,4 +1,5 @@
 resource "null_resource" "install_cert_manager" {
+  count      = "${var.cert_manager_enabled?0:1}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers {
