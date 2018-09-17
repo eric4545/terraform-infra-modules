@@ -12,6 +12,7 @@ The module will create following resource
 - Install `istio` in namespace `istio-system`
 - Install `kubernetes-dashboard` in namespace `kubernetes-dashboard`
 - Install `external-dns` in namespace `external-dns`
+  - Only support cloudflare now
 - Install `custom-metrics-stackdriver-adapter` in namespace `custom-metrics`
 
 ## Prerequisite

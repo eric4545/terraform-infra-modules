@@ -33,7 +33,7 @@ output "gcr_docker_config" {
 
 output "lb_address" {
   description = "Istio LB IP Address"
-  value       = "${google_compute_address.istio_lb.address}"
+  value       = "${var.istio_enabled?google_compute_address.istio_lb.0.address:""}"
 }
 
 output "kube_context" {

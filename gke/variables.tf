@@ -62,6 +62,16 @@ variable "istio_version" {
   default     = "1.0.2"
 }
 
+variable "istio_enabled" {
+  description = "Enable istio service mesh"
+  default     = true
+}
+
+variable "istio_egressgateway_enabled" {
+  description = "Enable istio egress gateway"
+  default     = false
+}
+
 variable "cert_manager_version" {
   description = "Cert manager chart version"
   type        = "string"
@@ -73,16 +83,24 @@ variable "stackdriver_adapter_version" {
   type        = "string"
   default     = "0.8.0"
 }
+
 variable "external_dns_version" {
   description = "external-dns chart version"
   type        = "string"
   default     = "0.7.5"
 }
+
 variable "kubernetes_dashboard_version" {
   description = "kubernetes-dashboard chart version"
   type        = "string"
   default     = "0.7.3"
 }
+
+variable "kubernetes_dashboard_enabled" {
+  description = "Enable kubernetes-dashboard"
+  default     = true
+}
+
 variable "cloudflare_email" {
   description = "Cloudflare email for external-ens access api"
 }

@@ -13,12 +13,14 @@ SCRIPT
 }
 
 resource "google_compute_address" "istio_lb" {
+  count        = "${var.istio_enabled?1:0}"
   name         = "${local.cluster_name}-istio-gateway-address"
   address_type = "EXTERNAL"
   region       = "${var.master_region}"
 }
 
 resource "null_resource" "install_istio" {
+  count      = "${var.istio_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers = {
@@ -38,6 +40,7 @@ helm upgrade istio /tmp/${local.cluster_name}/istio-release/istio-${var.istio_ve
   --set grafana.enabled=true \
   --set global.proxy.includeIPRanges="${data.external.ipv4_cidr.result.clusterIpv4Cidr}\,${data.external.ipv4_cidr.result.servicesIpv4Cidr}" \
   --set gateways.istio-ingressgateway.loadBalancerIP="${google_compute_address.istio_lb.address}" \
+  --set gateways.istio-egressgateway.enabled=${var.istio_egressgateway_enabled} \
   --namespace=istio-system \
   --tiller-namespace=tiller-system \
   --kube-context=${local.kube_context}

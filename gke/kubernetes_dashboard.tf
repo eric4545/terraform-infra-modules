@@ -1,4 +1,5 @@
 resource "null_resource" "install_kubernetes_dashboard" {
+  count      = "${var.kubernetes_dashboard_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers {
@@ -6,7 +7,7 @@ resource "null_resource" "install_kubernetes_dashboard" {
   }
 
   provisioner "local-exec" {
-  # TODO: Should only enable clusterAdminRole in dev, disable in production/testing
+    # TODO: Should only enable clusterAdminRole in dev, disable in production/testing
     command = <<SCRIPT
 helm upgrade kubernetes-dashboard stable/kubernetes-dashboard \
   --version="${var.kubernetes_dashboard_version}" \
