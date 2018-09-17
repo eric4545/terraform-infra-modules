@@ -3,13 +3,13 @@ resource "null_resource" "install_cert_manager" {
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers {
-    version = "${var.cert_manager_version}"
+    version = "${var.cert_manager_chart_version}"
   }
 
   provisioner "local-exec" {
     command = <<SCRIPT
 helm upgrade cert-manager stable/cert-manager \
-  --version="v${var.cert_manager_version}" \
+  --version="v${var.cert_manager_chart_version}" \
   --install \
   --wait \
   --namespace="cert-manager" \

@@ -72,7 +72,7 @@ variable "istio_egressgateway_enabled" {
   default     = false
 }
 
-variable "cert_manager_version" {
+variable "cert_manager_chart_version" {
   description = "Cert manager chart version"
   type        = "string"
   default     = "0.4.1"
@@ -94,7 +94,7 @@ variable "stackdriver_adapter_enabled" {
   default     = true
 }
 
-variable "external_dns_version" {
+variable "external_dns_chart_version" {
   description = "external-dns chart version"
   type        = "string"
   default     = "0.7.5"
@@ -105,7 +105,7 @@ variable "external_dns_enabled" {
   default     = true
 }
 
-variable "kubernetes_dashboard_version" {
+variable "kubernetes_dashboard_chart_version" {
   description = "kubernetes-dashboard chart version"
   type        = "string"
   default     = "0.7.3"
