@@ -1,6 +1,6 @@
 # FIXME: wait https://github.com/helm/charts/pull/7709 to support istio
 resource "null_resource" "install_external_dns" {
-  count      = "${var.external_dns_enabled?0:1}"
+  count      = "${var.external_dns_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers {
@@ -29,7 +29,7 @@ SCRIPT
 }
 
 resource "null_resource" "external_dns_cluster_issuer" {
-  count      = "${var.external_dns_enabled?0:1}"
+  count      = "${var.external_dns_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_external_dns"]
 
   provisioner "local-exec" {
