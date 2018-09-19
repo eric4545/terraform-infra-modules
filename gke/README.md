@@ -14,6 +14,7 @@ The module will create following resource
 - Install `external-dns` in namespace `external-dns`
   - Only support cloudflare now
 - Install `custom-metrics-stackdriver-adapter` in namespace `custom-metrics`
+- Install `sealed-secrets` in namespace `kube-system`
 
 ## Prerequisite
 

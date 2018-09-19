@@ -1,5 +1,9 @@
 # Changelog
 
+## 2018-09-18
+
+- Install `sealed-secrets` in namespace `kube-system`, disable by default
+
 ## 2018-09-17
 
 - Disable istio egress gateway by default

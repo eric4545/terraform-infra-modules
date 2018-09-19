@@ -23,6 +23,7 @@ helm upgrade ${local.flux_release_name} weaveworks/flux \
     --set helmOperator.tillerNamespace=${var.tiller_namespace} \
     --version="${var.flux_version}" \
     --install \
+    --wait \
     --namespace flux \
     --tiller-namespace=${var.tiller_namespace}
 SCRIPT

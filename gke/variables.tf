@@ -82,6 +82,16 @@ variable "cert_manager_enabled" {
   description = "Enable Cert manager"
   default     = true
 }
+variable "sealed_secrets_chart_version" {
+  description = "Sealed secrets chart version"
+  type        = "string"
+  default     = "v0.7.0"
+}
+
+variable "sealed_secrets_enabled" {
+  description = "Enable Sealed secrets"
+  default     = false
+}
 
 variable "stackdriver_adapter_version" {
   description = "custom metrics stackdriver adapter version"
