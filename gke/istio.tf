@@ -42,7 +42,7 @@ helm upgrade istio /tmp/${local.cluster_name}/istio-release/istio-${var.istio_ve
   --set gateways.istio-ingressgateway.loadBalancerIP="${google_compute_address.istio_lb.address}" \
   --set gateways.istio-egressgateway.enabled=${var.istio_egressgateway_enabled} \
   --namespace=istio-system \
-  --tiller-namespace=tiller-system \
+  --tiller-namespace="${var.tiller_namespace}" \
   --kube-context=${local.kube_context}
 SCRIPT
   }

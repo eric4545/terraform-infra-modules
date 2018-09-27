@@ -82,6 +82,7 @@ variable "cert_manager_enabled" {
   description = "Enable Cert manager"
   default     = true
 }
+
 variable "sealed_secrets_chart_version" {
   description = "Sealed secrets chart version"
   type        = "string"
@@ -132,4 +133,9 @@ variable "cloudflare_email" {
 
 variable "cloudflare_token" {
   description = "Cloudflare token for external-ens access api"
+}
+
+variable "tiller_namespace" {
+  description = "Install tiller into a particular namespace (default kube-system)"
+  default     = "kube-system"
 }

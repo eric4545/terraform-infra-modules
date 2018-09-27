@@ -22,7 +22,7 @@ helm upgrade external-dns stable/external-dns \
   --install \
   --wait \
   --namespace="external-dns" \
-  --tiller-namespace="tiller-system" \
+  --tiller-namespace="${var.tiller_namespace}" \
   --kube-context="${local.kube_context}"
 SCRIPT
   }

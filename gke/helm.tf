@@ -23,7 +23,7 @@ resource "null_resource" "install_helm" {
     helm init \
       --override 'spec.template.spec.containers[0].command'='{/tiller,--storage=secret}' \
       --service-account tiller \
-      --tiller-namespace tiller-system \
+      --tiller-namespace="${var.tiller_namespace}" \
       --wait \
       --upgrade \
       --kube-context=${local.kube_context} && \

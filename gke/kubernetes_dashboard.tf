@@ -16,7 +16,7 @@ helm upgrade kubernetes-dashboard stable/kubernetes-dashboard \
   --install \
   --wait \
   --namespace="kubernetes-dashboard" \
-  --tiller-namespace="tiller-system" \
+  --tiller-namespace="${var.tiller_namespace}" \
   --kube-context="${local.kube_context}"
 SCRIPT
   }

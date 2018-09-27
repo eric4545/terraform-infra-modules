@@ -13,7 +13,7 @@ helm upgrade cert-manager stable/cert-manager \
   --install \
   --wait \
   --namespace="cert-manager" \
-  --tiller-namespace="tiller-system" \
+  --tiller-namespace="${var.tiller_namespace}" \
   --kube-context="${local.kube_context}"
 SCRIPT
   }
