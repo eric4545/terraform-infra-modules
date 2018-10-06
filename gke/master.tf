@@ -27,8 +27,8 @@ resource "google_container_cluster" "primary" {
 
   # TODO: allow change network
   network                  = "projects/${var.gcp_project}/global/networks/${var.gcp_network}"
-  monitoring_service       = "${var.monitoring_enabled?"monitoring.googleapis.com/kubernetes":"none"}"
-  logging_service          = "${var.logging_enabled?"logging.googleapis.com/kubernetes":"none"}"
+  monitoring_service       = "${var.stackdriver_monitoring_enabled?"monitoring.googleapis.com/kubernetes":"none"}"
+  logging_service          = "${var.stackdriver_logging_enabled?"logging.googleapis.com/kubernetes":"none"}"
   remove_default_node_pool = "false"
 
   master_auth {

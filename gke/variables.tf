@@ -1,4 +1,6 @@
-variable "gcp_project" {}
+variable "gcp_project" {
+  description = "Google cloud project for resource create in"
+}
 
 variable "gcr_project" {
   type        = "string"
@@ -44,13 +46,13 @@ variable "preemptible" {
   default     = "true"
 }
 
-variable "logging_enabled" {
+variable "stackdriver_logging_enabled" {
   description = "Enable stackdriver logging"
   type        = "string"
   default     = true
 }
 
-variable "monitoring_enabled" {
+variable "stackdriver_monitoring_enabled" {
   description = "Enable stackdriver monitoring"
   type        = "string"
   default     = true
@@ -86,7 +88,7 @@ variable "cert_manager_enabled" {
 variable "sealed_secrets_chart_version" {
   description = "Sealed secrets chart version"
   type        = "string"
-  default     = "v0.7.0"
+  default     = "0.7.0"
 }
 
 variable "sealed_secrets_enabled" {
@@ -124,6 +126,17 @@ variable "kubernetes_dashboard_chart_version" {
 
 variable "kubernetes_dashboard_enabled" {
   description = "Enable kubernetes-dashboard"
+  default     = true
+}
+
+variable "metrics_server_chart_version" {
+  description = "metrics-server chart version"
+  type        = "string"
+  default     = "2.0.2"
+}
+
+variable "metrics_server_enabled" {
+  description = "Enable metrics-server"
   default     = true
 }
 
