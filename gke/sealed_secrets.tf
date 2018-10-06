@@ -3,7 +3,7 @@ resource "null_resource" "install_sealed_secrets" {
   depends_on = ["null_resource.kubectl"]
 
   triggers {
-    version = "v${var.sealed_secrets_chart_version}"
+    chart_version = "v${var.sealed_secrets_chart_version}"
   }
 
   provisioner "local-exec" {

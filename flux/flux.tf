@@ -4,7 +4,7 @@ locals {
 
 resource "null_resource" "install_flux" {
   triggers {
-    version = "${var.flux_version}"
+    chart_version = "${var.flux_chart_version}"
   }
 
   provisioner "local-exec" {
@@ -21,7 +21,7 @@ helm upgrade ${local.flux_release_name} weaveworks/flux \
     --set helmOperator.create=true \
     --set helmOperator.git.chartsPath=charts \
     --set helmOperator.tillerNamespace=${var.tiller_namespace} \
-    --version="${var.flux_version}" \
+    --version="${var.flux_chart_version}" \
     --install \
     --wait \
     --namespace flux \

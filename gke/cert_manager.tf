@@ -3,7 +3,7 @@ resource "null_resource" "install_cert_manager" {
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers {
-    version = "${var.cert_manager_chart_version}"
+    chart_version = "${var.cert_manager_chart_version}"
   }
 
   provisioner "local-exec" {

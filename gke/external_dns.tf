@@ -4,7 +4,7 @@ resource "null_resource" "install_external_dns" {
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
   triggers {
-    version = "${var.external_dns_chart_version}"
+    chart_version = "${var.external_dns_chart_version}"
   }
 
   provisioner "local-exec" {

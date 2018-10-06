@@ -7,7 +7,7 @@ The module will create following resource
 - Google service account
   - GCR
   - GKE Cluster
-- Install helm `tiller` in namespace `tiller-system`
+- Install helm `tiller` in namespace `kube-system`
 - Install `cert-manager` in namespace `cert-manager`
 - Install `istio` in namespace `istio-system`
 - Install `kubernetes-dashboard` in namespace `kubernetes-dashboard`

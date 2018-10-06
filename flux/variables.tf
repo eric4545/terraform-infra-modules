@@ -23,11 +23,12 @@ variable "github_repo_owner" {
 }
 
 variable "tiller_namespace" {
-  description = "Set an alternative Tiller namespace, here default `tiller-system`"
-  default     = "tiller-system"
+  description = "Set an alternative Tiller namespace, here default `kube-system`"
+  default     = "kube-system"
 }
 
-variable "flux_version" {
+variable "flux_chart_version" {
   description = ""
-  default     = "0.3.2"
+  default     = "0.3.4"
 }
+

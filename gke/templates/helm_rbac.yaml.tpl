@@ -1,18 +1,18 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: tiller-system
----
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#  name: tiller-system
+# ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: tiller
-  namespace: tiller-system
+  namespace: kube-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: tiller-system-cluster-rule
+  name: tiller-cluster-role-binding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -20,4 +20,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: tiller
-  namespace: tiller-system
+  namespace: kube-system
