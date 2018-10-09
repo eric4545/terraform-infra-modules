@@ -58,6 +58,12 @@ variable "stackdriver_monitoring_enabled" {
   default     = true
 }
 
+variable "http_load_balancing_enabled" {
+  description = "(Optional) Enable GCLB HTTP (L7) load balancing controller addon Default: false, use istio gateway"
+  type        = "string"
+  default     = false
+}
+
 variable "istio_version" {
   description = "Istio version to be install"
   type        = "string"

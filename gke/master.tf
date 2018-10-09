@@ -13,6 +13,8 @@ locals {
 
   kube_context = "gke_${var.gcp_project}_${var.master_region}_${local.cluster_name}"
 
+  http_load_balancing_disabled = "${var.http_load_balancing_enabled?false:true}"
+
   # authorized = {
   #   # cidr_block   = ""
   #   # display_name = ""
@@ -60,6 +62,12 @@ resource "google_container_cluster" "primary" {
       workload_metadata_config {
         node_metadata = "SECURE"
       }
+    }
+  }
+
+  addons_config {
+    http_load_balancing {
+      disabled = "${local.http_load_balancing_disabled}"
     }
   }
 
