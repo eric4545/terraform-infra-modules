@@ -34,7 +34,7 @@ curl -sL https://github.com/istio/istio/releases/download/${var.istio_version}/i
 helm upgrade istio /tmp/${local.cluster_name}/istio-release/istio-${var.istio_version}/install/kubernetes/helm/istio \
   --install \
   --wait \
-  --set servicegraph.enabled=true \
+  --set servicegraph.enabled=false \
   --set tracing.enabled=true \
   --set kiali.enabled=true \
   --set grafana.enabled=true \

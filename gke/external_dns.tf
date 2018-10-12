@@ -1,4 +1,3 @@
-# FIXME: wait https://github.com/helm/charts/pull/7709 to support istio
 resource "null_resource" "install_external_dns" {
   count      = "${var.external_dns_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
@@ -19,6 +18,7 @@ helm upgrade external-dns stable/external-dns \
   --set sources[0]=service \
   --set sources[1]=istio-gateway \
   --set sources[2]=ingress \
+  --set extraArgs.cloudflare-proxied="" \
   --install \
   --wait \
   --namespace="external-dns" \
