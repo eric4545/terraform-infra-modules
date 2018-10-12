@@ -147,11 +147,11 @@ variable "metrics_server_enabled" {
 }
 
 variable "cloudflare_email" {
-  description = "Cloudflare email for external-ens access api"
+  description = "Cloudflare email for external-dns access api"
 }
 
 variable "cloudflare_token" {
-  description = "Cloudflare token for external-ens access api"
+  description = "Cloudflare token for external-dns access api"
 }
 
 variable "tiller_namespace" {
