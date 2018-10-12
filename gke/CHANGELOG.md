@@ -1,5 +1,9 @@
 # Changelog
 
+## 2018-10-13
+
+- Created a self sign cert `istio-ingressgateway-certs` in namespace `istio-system`, use cloudflare as Front SSL
+
 ## 2018-09-18
 
 - Install `sealed-secrets` in namespace `kube-system`, disable by default

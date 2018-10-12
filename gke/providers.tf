@@ -29,3 +29,7 @@ provider "template" {
 provider "random" {
   version = "~> 1.3"
 }
+
+provider "tls" {
+  version = "~> 1.0"
+}

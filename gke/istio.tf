@@ -47,3 +47,55 @@ helm upgrade istio /tmp/${local.cluster_name}/istio-release/istio-${var.istio_ve
 SCRIPT
   }
 }
+
+resource "tls_private_key" "ingressgateway_private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "tls_self_signed_cert" "ingressgateway_self_sign_cert" {
+  key_algorithm         = "${tls_private_key.ingressgateway_private_key.algorithm}"
+  private_key_pem       = "${tls_private_key.ingressgateway_private_key.private_key_pem}"
+  validity_period_hours = 3650
+
+  # Generate a new certificate if Terraform is run within three
+  # hours of the certificate's expiration time.
+  early_renewal_hours = 3
+
+  # Reasonable set of uses for a server SSL certificate.
+  allowed_uses = [
+    "key_encipherment",
+    "digital_signature",
+    "server_auth",
+  ]
+
+  subject {
+    common_name  = "example.com"
+    organization = "null or Undefined Inc"
+  }
+}
+
+resource "null_resource" "install_istio_ingressgateway_certs" {
+  depends_on = ["null_resource.kubectl", "null_resource.install_istio"]
+
+  triggers {
+    validity_start_time = "${tls_self_signed_cert.ingressgateway_self_sign_cert.validity_start_time}"
+    validity_end_time   = "${tls_self_signed_cert.ingressgateway_self_sign_cert.validity_end_time}"
+  }
+
+  provisioner "local-exec" {
+    command = <<SCRIPT
+cat <<EOF | kubectl --context="${local.kube_context}" apply --namespace=istio-system -f -
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: istio-ingressgateway-certs
+type: kubernetes.io/tls
+data:
+  tls.crt: "${base64encode(tls_self_signed_cert.ingressgateway_self_sign_cert.cert_pem)}"
+  tls.key: "${base64encode(tls_private_key.ingressgateway_private_key.private_key_pem)}"
+EOF
+SCRIPT
+  }
+}

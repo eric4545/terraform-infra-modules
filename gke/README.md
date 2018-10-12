@@ -10,12 +10,12 @@ The module will create following resource
 - Install helm `tiller` in namespace `kube-system`
 - Install `cert-manager` in namespace `cert-manager`
 - Install `istio` in namespace `istio-system`
+- Created a self sign cert `istio-ingressgateway-certs` in namespace `istio-system`, use cloudflare as Front SSL
 - Install `kubernetes-dashboard` in namespace `kubernetes-dashboard`
 - Install `external-dns` in namespace `external-dns`
   - Only support cloudflare now
 - Install `custom-metrics-stackdriver-adapter` in namespace `custom-metrics`
 - Install `sealed-secrets` in namespace `kube-system`
-
 ## Prerequisite
 
 - `helm`@~2.10
@@ -48,7 +48,7 @@ The module will create following resource
   - A: Clean up istio
     `kubectl delete -f /tmp/istio-release/istio-1.0.0/install/kubernetes/helm/istio/templates/crds.yaml -n istio-system`
 - Q: Get gcr key
-  - A: `terraform output -module=gke gcr_key`
+  - A: `terragrunt output gcr_key > gcr_key.json`
 
 ## Reference
 
