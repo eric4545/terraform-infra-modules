@@ -83,7 +83,7 @@ variable "istio_egressgateway_enabled" {
 variable "cert_manager_chart_version" {
   description = "Cert manager chart version"
   type        = "string"
-  default     = "0.4.1"
+  default     = "0.5.0"
 }
 
 variable "cert_manager_enabled" {
@@ -114,9 +114,9 @@ variable "stackdriver_adapter_enabled" {
 }
 
 variable "external_dns_chart_version" {
-  description = "external-dns chart version"
+  description = "external-dns chart version, ref: https://github.com/helm/charts/blob/master/stable/external-dns/Chart.yaml#L6"
   type        = "string"
-  default     = "0.7.5"
+  default     = "0.7.8"
 }
 
 variable "external_dns_enabled" {
@@ -132,17 +132,6 @@ variable "kubernetes_dashboard_chart_version" {
 
 variable "kubernetes_dashboard_enabled" {
   description = "Enable kubernetes-dashboard"
-  default     = true
-}
-
-variable "metrics_server_chart_version" {
-  description = "metrics-server chart version"
-  type        = "string"
-  default     = "2.0.2"
-}
-
-variable "metrics_server_enabled" {
-  description = "Enable metrics-server"
   default     = true
 }
 
