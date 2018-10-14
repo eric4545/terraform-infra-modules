@@ -147,3 +147,14 @@ variable "tiller_namespace" {
   description = "Install tiller into a particular namespace (default kube-system)"
   default     = "kube-system"
 }
+
+variable "chaoskube_chart_version" {
+  description = "chaoskube chart version, ref: https://github.com/helm/charts/blob/master/stable/chaoskube/Chart.yaml#L3"
+  type        = "string"
+  default     = "0.10.0"
+}
+
+variable "chaoskube_enabled" {
+  description = "Enable chaoskube, default: false"
+  default     = false
+}

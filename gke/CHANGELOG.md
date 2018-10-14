@@ -1,5 +1,9 @@
 # Changelog
 
+## 2018-10-14
+
+- Install `Chaoskube` in namespace `chaoskube`, disable by default
+
 ## 2018-10-13
 
 - Created a self sign cert `istio-ingressgateway-certs` in namespace `istio-system`, use cloudflare as Front SSL

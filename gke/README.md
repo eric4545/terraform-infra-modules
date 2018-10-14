@@ -16,6 +16,8 @@ The module will create following resource
   - Only support cloudflare now
 - Install `custom-metrics-stackdriver-adapter` in namespace `custom-metrics`
 - Install `sealed-secrets` in namespace `kube-system`
+- Install `Chaoskube` in namespace `chaoskube`
+
 ## Prerequisite
 
 - `helm`@~2.10
@@ -38,6 +40,7 @@ The module will create following resource
 - [x] Auto install external dns
 - [ ] VPC-native (alias IP)
 - [ ] Master authorized networks
+- [ ] Remove chart when disabled
 
 ## FAQ
 
