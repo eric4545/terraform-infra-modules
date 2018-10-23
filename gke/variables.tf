@@ -23,7 +23,7 @@ variable "cluster_name" {
 
 variable "master_region" {
   description = "Master GKE region"
-  default     = "asia-east1"
+  default     = "asia-east2"
 }
 
 variable "kubernetes_master_version" {
@@ -62,6 +62,11 @@ variable "http_load_balancing_enabled" {
   description = "(Optional) Enable GCLB HTTP (L7) load balancing controller addon Default: false, use istio gateway"
   type        = "string"
   default     = false
+}
+variable "horizontal_pod_autoscaling_enabled" {
+  description = "(Optional) Enable HPA addon Default: true"
+  type        = "string"
+  default     = true
 }
 
 variable "istio_version" {
