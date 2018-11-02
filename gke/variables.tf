@@ -72,7 +72,7 @@ variable "horizontal_pod_autoscaling_enabled" {
 variable "istio_version" {
   description = "Istio version to be install"
   type        = "string"
-  default     = "1.0.2"
+  default     = "1.0.3"
 }
 
 variable "istio_enabled" {
