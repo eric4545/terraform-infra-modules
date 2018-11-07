@@ -13,6 +13,8 @@ SCRIPT
 }
 
 resource "google_compute_address" "istio_lb" {
+  # only create static IP when gke created
+  depends_on   = ["google_container_cluster.primary"]
   count        = "${var.istio_enabled?1:0}"
   name         = "${local.cluster_name}-istio-gateway-address"
   address_type = "EXTERNAL"

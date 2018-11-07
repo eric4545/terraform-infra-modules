@@ -13,7 +13,8 @@ locals {
 
   kube_context = "gke_${var.gcp_project}_${var.master_region}_${local.cluster_name}"
 
-  http_load_balancing_disabled = "${var.http_load_balancing_enabled?false:true}"
+  horizontal_pod_autoscaling_disabled = "${var.horizontal_pod_autoscaling_enabled?false:true}"
+  http_load_balancing_disabled        = "${var.http_load_balancing_enabled?false:true}"
 
   # authorized = {
   #   # cidr_block   = ""
@@ -66,8 +67,20 @@ resource "google_container_cluster" "primary" {
   }
 
   addons_config {
+    horizontal_pod_autoscaling {
+      disabled = "${local.horizontal_pod_autoscaling_disabled}"
+    }
+
     http_load_balancing {
       disabled = "${local.http_load_balancing_disabled}"
+    }
+
+    kubernetes_dashboard {
+      disabled = true
+    }
+
+    network_policy_config {
+      disabled = true
     }
   }
 
