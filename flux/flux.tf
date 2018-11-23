@@ -17,6 +17,7 @@ helm upgrade ${local.flux_release_name} weaveworks/flux \
     --set git.branch=master \
     --set git.path= \
     --set git.ciSkip=true \
+    --set git.label="flux-sync" \
     --set registry.rps="2" \
     --set helmOperator.create=true \
     --set helmOperator.git.chartsPath=charts \
