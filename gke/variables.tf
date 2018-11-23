@@ -42,8 +42,8 @@ variable "disk_type" {
 }
 
 variable "preemptible" {
-  description = "(Optional) A boolean that represents whether or not the underlying node VMs are preemptible. Defaults to true.[EXP]"
-  default     = "true"
+  description = "(Optional) A boolean that represents whether or not the underlying node VMs are preemptible. Defaults to false."
+  default     = "false"
 }
 
 variable "stackdriver_logging_enabled" {
