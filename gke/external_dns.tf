@@ -1,36 +1,62 @@
-resource "null_resource" "install_external_dns" {
+resource "helm_release" "external_dns" {
   count      = "${var.external_dns_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
-  triggers {
-    chart_version = "${var.external_dns_chart_version}"
+  name  = "external-dns"
+  chart = "stable/external-dns"
+
+  namespace = "external-dns"
+  version   = "v${var.external_dns_chart_version}"
+
+  set {
+    name  = "provider"
+    value = "cloudflare"
   }
 
-  provisioner "local-exec" {
-    command = <<SCRIPT
-helm upgrade external-dns stable/external-dns \
-  --version="${var.external_dns_chart_version}" \
-  --set provider=cloudflare \
-  --set cloudflare.email="${var.cloudflare_email}" \
-  --set cloudflare.apiKey="${var.cloudflare_token}" \
-  --set policy=sync \
-  --set rbac.create=true \
-  --set sources[0]=service \
-  --set sources[1]=istio-gateway \
-  --set sources[2]=ingress \
-  --set extraArgs.cloudflare-proxied="" \
-  --install \
-  --wait \
-  --namespace="external-dns" \
-  --tiller-namespace="${var.tiller_namespace}" \
-  --kube-context="${local.kube_context}"
-SCRIPT
+  set {
+    name  = "cloudflare.email"
+    value = "${var.cloudflare_email}"
+  }
+
+  set {
+    name  = "cloudflare.apiKey"
+    value = "${var.cloudflare_token}"
+  }
+
+  set {
+    name  = "policy"
+    value = "sync"
+  }
+
+  set {
+    name  = "rbac.create"
+    value = true
+  }
+
+  set {
+    name  = "sources[0]"
+    value = "service"
+  }
+
+  set {
+    name  = "sources[1]"
+    value = "istio-gateway"
+  }
+
+  set {
+    name  = "sources[2]"
+    value = "ingress"
+  }
+
+  set {
+    name  = "extraArgs.cloudflare-proxied"
+    value = ""
   }
 }
 
 resource "null_resource" "external_dns_cluster_issuer" {
   count      = "${var.external_dns_enabled?1:0}"
-  depends_on = ["null_resource.kubectl", "null_resource.install_external_dns"]
+  depends_on = ["null_resource.kubectl", "helm_release.external_dns", "helm_release.cert_manager"]
 
   provisioner "local-exec" {
     command = <<SCRIPT

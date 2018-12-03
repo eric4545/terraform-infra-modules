@@ -33,3 +33,5 @@ provider "random" {
 provider "tls" {
   version = "~> 1.0"
 }
+
+# provider "helm" Moved to helm.tf

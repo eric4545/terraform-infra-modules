@@ -15,6 +15,13 @@ SCRIPT
   }
 }
 
+provider "helm" {
+  kubernetes {
+    config_context = "${local.kube_context}"
+  }
+}
+
+
 resource "null_resource" "install_helm" {
   depends_on = ["null_resource.kubectl", "null_resource.helm_rbac"]
 
