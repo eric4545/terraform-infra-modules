@@ -86,7 +86,7 @@ variable "istio_egressgateway_enabled" {
 }
 
 variable "cert_manager_chart_version" {
-  description = "Cert manager chart version"
+  description = "Cert manager chart version, ref: https://github.com/helm/charts/blob/master/stable/cert-manager/Chart.yaml#L2"
   type        = "string"
   default     = "0.5.2"
 }
@@ -121,7 +121,7 @@ variable "stackdriver_adapter_enabled" {
 variable "external_dns_chart_version" {
   description = "external-dns chart version, ref: https://github.com/helm/charts/blob/master/stable/external-dns/Chart.yaml#L6"
   type        = "string"
-  default     = "0.7.8"
+  default     = "1.1.0"
 }
 
 variable "external_dns_enabled" {
@@ -130,9 +130,9 @@ variable "external_dns_enabled" {
 }
 
 variable "kubernetes_dashboard_chart_version" {
-  description = "kubernetes-dashboard chart version"
+  description = "kubernetes-dashboard chart version, ref: https://github.com/helm/charts/blob/master/stable/kubernetes-dashboard/Chart.yaml#L2"
   type        = "string"
-  default     = "0.7.3"
+  default     = "0.8.0"
 }
 
 variable "kubernetes_dashboard_enabled" {
@@ -144,8 +144,8 @@ variable "cloudflare_email" {
   description = "Cloudflare email for external-dns access api"
 }
 
-variable "cloudflare_token" {
-  description = "Cloudflare token for external-dns access api"
+variable "cloudflare_api_key" {
+  description = "Cloudflare API Key for external-dns access api"
 }
 
 variable "tiller_namespace" {

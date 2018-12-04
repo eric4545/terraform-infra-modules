@@ -1,7 +1,7 @@
 provider "cloudflare" {
   version = "~> 1.2"
   email   = "${var.cloudflare_email}"
-  token   = "${var.cloudflare_token}"
+  token   = "${var.cloudflare_api_key}"
 }
 
 resource "cloudflare_record" "record" {

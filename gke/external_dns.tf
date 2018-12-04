@@ -20,7 +20,7 @@ resource "helm_release" "external_dns" {
 
   set {
     name  = "cloudflare.apiKey"
-    value = "${var.cloudflare_token}"
+    value = "${var.cloudflare_api_key}"
   }
 
   set {
@@ -33,24 +33,29 @@ resource "helm_release" "external_dns" {
     value = true
   }
 
-  set {
-    name  = "sources[0]"
-    value = "service"
-  }
+  # set {
+  #   name  = "sources[0]"
+  #   value = "service"
+  # }
 
   set {
-    name  = "sources[1]"
+    name  = "sources[0]"
     value = "istio-gateway"
   }
 
-  set {
-    name  = "sources[2]"
-    value = "ingress"
-  }
+  # set {
+  #   name  = "sources[2]"
+  #   value = "ingress"
+  # }
 
   set {
     name  = "extraArgs.cloudflare-proxied"
     value = ""
+  }
+
+  set {
+    name  = "txtPrefix"
+    value = "${local.cluster_name}"
   }
 }
 
@@ -67,7 +72,7 @@ kind: Secret
 metadata:
   name: cloudflare-api-key
 data:
-  api-key: ${base64encode(var.cloudflare_token)}
+  api-key: ${base64encode(var.cloudflare_api_key)}
   email: ${base64encode(var.cloudflare_email)}
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
