@@ -80,7 +80,8 @@ SCRIPT
 }
 
 resource "gitlab_deploy_key" "deploy_key" {
-  project = "${var.gitlab_project}"
-  title   = "flux deploy key"
-  key     = "${lookup(data.external.flux_ssh_key.result,"key")}"
+  project  = "${var.gitlab_project}"
+  title    = "flux deploy key"
+  key      = "${lookup(data.external.flux_ssh_key.result,"key")}"
+  can_push = true
 }
