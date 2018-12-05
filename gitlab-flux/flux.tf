@@ -71,8 +71,7 @@ data "external" "flux_ssh_key" {
 
   program = ["/bin/sh", "-c",
     <<SCRIPT
-FLUX_POD=$(kubectl get pods -n flux -l "app=flux,release=${helm_release.flux.name}" -o jsonpath="{.items[0].metadata.name}") && \
-SSH_KEY=$(kubectl -n flux logs $FLUX_POD | grep identity.pub | cut -d '"' -f2) && \
+SSH_KEY=$(fluxctl identity --k8s-fwd-ns=flux) && \
 echo "{\"key\":\"$SSH_KEY\"}"
 SCRIPT
     ,
@@ -81,7 +80,7 @@ SCRIPT
 
 resource "gitlab_deploy_key" "deploy_key" {
   project  = "${var.gitlab_project}"
-  title    = "flux deploy key"
+  title    = "${local.flux_release_name} flux deploy key"
   key      = "${lookup(data.external.flux_ssh_key.result,"key")}"
   can_push = true
 }

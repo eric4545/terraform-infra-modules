@@ -8,6 +8,7 @@ Install GitOps Kubernetes operator [Flux](https://github.com/weaveworks/flux)
 - `helm` client bin install
 - \*nix shell
 - `github` personal token and repo
+- `fluxctl`
 
 #
 
