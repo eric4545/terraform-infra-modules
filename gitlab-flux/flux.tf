@@ -61,6 +61,11 @@ resource "helm_release" "flux" {
   }
 
   set {
+    name  = "helmOperator.git.pollInterval"
+    value = "1m"
+  }
+
+  set {
     name  = "helmOperator.tillerNamespace"
     value = "${var.tiller_namespace}"
   }
