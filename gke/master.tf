@@ -5,6 +5,7 @@ data "google_container_engine_versions" "master_region" {
 locals {
   # EG: testing--cluster
   default_cluster_name = "${var.env}-${var.master_region}-cluster"
+  subnetwork_name      = "${local.cluster_name}-subnet"
 
   # Use to override default_cluster_name
   cluster_name              = "${var.cluster_name!=""?var.cluster_name:local.default_cluster_name}"
@@ -12,14 +13,6 @@ locals {
   kubernetes_worker_version = "${var.kubernetes_worker_version!=""?var.kubernetes_worker_version:data.google_container_engine_versions.master_region.latest_node_version}"
 
   kube_context = "gke_${var.gcp_project}_${var.master_region}_${local.cluster_name}"
-
-  horizontal_pod_autoscaling_disabled = "${var.horizontal_pod_autoscaling_enabled?false:true}"
-  http_load_balancing_disabled        = "${var.http_load_balancing_enabled?false:true}"
-
-  # authorized = {
-  #   # cidr_block   = ""
-  #   # display_name = ""
-  # }
 }
 
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html
@@ -54,6 +47,7 @@ resource "google_container_cluster" "primary" {
       preemptible     = "${var.preemptible}"
       disk_type       = "${var.disk_type}"
       service_account = "${google_service_account.gke_node.email}"
+      image_type      = "${var.image_type}"
 
       labels {
         env        = "${var.env}"
@@ -68,11 +62,11 @@ resource "google_container_cluster" "primary" {
 
   addons_config {
     horizontal_pod_autoscaling {
-      disabled = "${local.horizontal_pod_autoscaling_disabled}"
+      disabled = "${var.horizontal_pod_autoscaling_enabled?false:true}"
     }
 
     http_load_balancing {
-      disabled = "${local.http_load_balancing_disabled}"
+      disabled = "${var.http_load_balancing_enabled?false:true}"
     }
 
     kubernetes_dashboard {
@@ -80,7 +74,7 @@ resource "google_container_cluster" "primary" {
     }
 
     network_policy_config {
-      disabled = true
+      disabled = "${var.network_policy_enabled?false:true}"
     }
   }
 
@@ -96,13 +90,16 @@ resource "google_container_cluster" "primary" {
   resource_labels {
     env = "${var.env}"
   }
-
   # enable VPC native
-  # ip_allocation_policy {
-  #   cluster_secondary_range_name  = ""
-  #   services_secondary_range_name = ""
-  # }
+  ip_allocation_policy {
+    create_subnetwork = true
 
+    subnetwork_name = "${local.subnetwork_name}"
+  }
+  # enable network policy
+  network_policy {
+    enabled = "${var.network_policy_enabled}"
+  }
   lifecycle {
     # ignore_changes node_pool otherwise it detect no default-pool will recreate cluster
     ignore_changes = ["node_pool"]
