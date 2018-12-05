@@ -41,6 +41,11 @@ variable "disk_type" {
   default     = "pd-standard"
 }
 
+variable "image_type" {
+  description = " (Optional) The image type (e.g. 'COS' or 'COS_CONTAINERD', 'UBUNTU') to use for this node. Note that changing the image type will delete and recreate all nodes in the node pool."
+  default     = "COS"
+}
+
 variable "preemptible" {
   description = "(Optional) A boolean that represents whether or not the underlying node VMs are preemptible. Defaults to false."
   default     = "false"
@@ -63,6 +68,13 @@ variable "http_load_balancing_enabled" {
   type        = "string"
   default     = false
 }
+
+variable "network_policy_enabled" {
+  description = "(Optional) Whether network policy is enabled on the cluster. Defaults to false."
+  type        = "string"
+  default     = false
+}
+
 variable "horizontal_pod_autoscaling_enabled" {
   description = "(Optional) Enable HPA addon Default: true"
   type        = "string"
@@ -127,6 +139,11 @@ variable "external_dns_chart_version" {
 variable "external_dns_enabled" {
   description = "Enable external-dns"
   default     = true
+}
+
+variable "external_dns_chartlog_level" {
+  description = "Verbosity of the External DNS logs (options: panic, debug, info, warn, error, fatal)"
+  default     = "info"
 }
 
 variable "kubernetes_dashboard_chart_version" {

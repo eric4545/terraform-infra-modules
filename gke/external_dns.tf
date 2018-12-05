@@ -57,6 +57,10 @@ resource "helm_release" "external_dns" {
     name  = "txtPrefix"
     value = "${local.cluster_name}"
   }
+  set {
+    name  = "logLevel"
+    value = "${var.external_dns_chartlog_level}"
+  }
 }
 
 resource "null_resource" "external_dns_cluster_issuer" {
