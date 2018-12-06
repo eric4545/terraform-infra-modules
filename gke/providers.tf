@@ -1,5 +1,10 @@
 provider "google" {
-  version = "~> 1.13"
+  version = "~> 1.19"
+  project = "${var.gcp_project}"
+}
+
+provider "google-beta" {
+  version = "~> 1.19"
   project = "${var.gcp_project}"
 }
 
@@ -35,3 +40,4 @@ provider "tls" {
 }
 
 # provider "helm" Moved to helm.tf
+

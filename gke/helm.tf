@@ -1,3 +1,4 @@
+# TODO: https://github.com/helm/helm/blob/master/docs/tiller_ssl.md
 data "template_file" "helm_rbac" {
   template = "${file("${path.module}/templates/helm_rbac.yaml.tpl")}"
 }

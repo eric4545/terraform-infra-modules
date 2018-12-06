@@ -24,6 +24,7 @@ resource "google_container_node_pool" "n2_pool" {
     machine_type    = "n1-standard-2"
     service_account = "${google_service_account.gke_node.email}"
     disk_type       = "${var.disk_type}"
+    image_type      = "${var.image_type}"
 
     labels {
       env        = "${var.env}"
