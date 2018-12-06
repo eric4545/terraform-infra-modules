@@ -32,4 +32,9 @@ resource "helm_release" "chaoskube" {
     name  = "excludedWeekdays"
     value = "Sat\\,Sun"
   }
+
+  set {
+    name  = "rbac.create"
+    value = true
+  }
 }
