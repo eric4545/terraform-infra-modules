@@ -2,8 +2,8 @@ variable "cloudflare_email" {
   description = "Cloudflare email to access api"
 }
 
-variable "cloudflare_token" {
-  description = "Cloudflare token to access api"
+variable "cloudflare_api_key" {
+  description = "Cloudflare API Key to access api"
 }
 
 variable "lb_address" {
