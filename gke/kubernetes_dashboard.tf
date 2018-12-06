@@ -1,23 +1,20 @@
-resource "null_resource" "install_kubernetes_dashboard" {
+resource "helm_release" "kubernetes_dashboard" {
   count      = "${var.kubernetes_dashboard_enabled?1:0}"
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
-  triggers {
-    chart_version = "${var.kubernetes_dashboard_chart_version}"
+  name  = "kubernetes-dashboard"
+  chart = "stable/kubernetes-dashboard"
+
+  namespace = "kubernetes-dashboard"
+  version   = "${var.kubernetes_dashboard_chart_version}"
+
+  set {
+    name  = "rbac.create"
+    value = true
   }
 
-  provisioner "local-exec" {
-    # TODO: Should only enable clusterAdminRole in dev, disable in production/testing
-    command = <<SCRIPT
-helm upgrade kubernetes-dashboard stable/kubernetes-dashboard \
-  --version="${var.kubernetes_dashboard_chart_version}" \
-  --set rbac.create=true \
-  --set rbac.clusterAdminRole=true \
-  --install \
-  --wait \
-  --namespace="kubernetes-dashboard" \
-  --tiller-namespace="${var.tiller_namespace}" \
-  --kube-context="${local.kube_context}"
-SCRIPT
+  set {
+    name  = "rbac.clusterAdminRole"
+    value = true
   }
 }

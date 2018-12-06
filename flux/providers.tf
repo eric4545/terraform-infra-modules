@@ -11,3 +11,5 @@ provider "null" {
 provider "external" {
   version = "~> 1.0"
 }
+
+provider "helm" {}

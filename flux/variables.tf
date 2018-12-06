@@ -29,6 +29,6 @@ variable "tiller_namespace" {
 
 variable "flux_chart_version" {
   description = "flux chart version, ref: https://github.com/weaveworks/flux/blob/master/chart/flux/Chart.yaml#L5"
-  default     = "0.5.2"
+  default     = "0.5.1"
 }
 

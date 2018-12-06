@@ -72,7 +72,7 @@ variable "horizontal_pod_autoscaling_enabled" {
 variable "istio_version" {
   description = "Istio version to be install"
   type        = "string"
-  default     = "1.0.3"
+  default     = "1.0.4"
 }
 
 variable "istio_enabled" {
@@ -88,7 +88,7 @@ variable "istio_egressgateway_enabled" {
 variable "cert_manager_chart_version" {
   description = "Cert manager chart version"
   type        = "string"
-  default     = "0.5.0"
+  default     = "0.5.2"
 }
 
 variable "cert_manager_enabled" {
