@@ -81,10 +81,10 @@ variable "horizontal_pod_autoscaling_enabled" {
   default     = true
 }
 
-variable "istio_version" {
-  description = "Istio version to be install"
+variable "istio_chart_version" {
+  description = "Istio version to be install, Ref tag: https://github.com/istio/istio/releases"
   type        = "string"
-  default     = "1.0.4"
+  default     = "1.1.0"
 }
 
 variable "istio_enabled" {

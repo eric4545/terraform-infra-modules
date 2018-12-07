@@ -21,32 +21,49 @@ resource "google_compute_address" "istio_lb" {
   region       = "${var.master_region}"
 }
 
-resource "null_resource" "install_istio" {
-  count      = "${var.istio_enabled?1:0}"
+resource "helm_repository" "istio" {
+  name = "istio"
+  url  = "https://gcsweb.istio.io/gcs/istio-prerelease/daily-build/release-1.1-latest-daily/charts"
+}
+
+resource "helm_release" "istio" {
   depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
 
-  triggers = {
-    version = "${var.istio_version}"
+  name       = "istio"
+  repository = "${helm_repository.istio.metadata.0.name}"
+  chart      = "istio"
+
+  namespace = "istio-system"
+  version   = "${var.istio_chart_version}"
+
+  set {
+    name  = "tracing.enabled"
+    value = true
   }
 
-  provisioner "local-exec" {
-    command = <<SCRIPT
-mkdir -p /tmp/${local.cluster_name}/istio-release && \
-curl -sL https://github.com/istio/istio/releases/download/${var.istio_version}/istio-${var.istio_version}-linux.tar.gz | tar xz -C /tmp/${local.cluster_name}/istio-release && \
-helm upgrade istio /tmp/${local.cluster_name}/istio-release/istio-${var.istio_version}/install/kubernetes/helm/istio \
-  --install \
-  --wait \
-  --set servicegraph.enabled=false \
-  --set tracing.enabled=true \
-  --set kiali.enabled=true \
-  --set grafana.enabled=true \
-  --set global.proxy.includeIPRanges="${data.external.ipv4_cidr.result.clusterIpv4Cidr}\,${data.external.ipv4_cidr.result.servicesIpv4Cidr}" \
-  --set gateways.istio-ingressgateway.loadBalancerIP="${google_compute_address.istio_lb.address}" \
-  --set gateways.istio-egressgateway.enabled=${var.istio_egressgateway_enabled} \
-  --namespace=istio-system \
-  --tiller-namespace="${var.tiller_namespace}" \
-  --kube-context=${local.kube_context}
-SCRIPT
+  set {
+    name  = "kiali.enabled"
+    value = true
+  }
+
+  set {
+    name  = "grafana.enabled"
+    value = true
+  }
+
+  set {
+    name  = "global.proxy.includeIPRanges"
+    value = "${lookup(data.external.ipv4_cidr.result, "clusterIpv4Cidr")}\\,${lookup(data.external.ipv4_cidr.result, "servicesIpv4Cidr")}"
+  }
+
+  set {
+    name  = "gateways.istio-ingressgateway.loadBalancerIP"
+    value = "${google_compute_address.istio_lb.address}"
+  }
+
+  set {
+    name  = "gateways.istio-egressgateway.enabled"
+    value = "${var.istio_egressgateway_enabled}"
   }
 }
 
@@ -78,7 +95,7 @@ resource "tls_self_signed_cert" "ingressgateway_self_sign_cert" {
 }
 
 resource "null_resource" "install_istio_ingressgateway_certs" {
-  depends_on = ["null_resource.kubectl", "null_resource.install_istio"]
+  depends_on = ["null_resource.kubectl", "helm_release.istio"]
 
   triggers {
     validity_start_time = "${tls_self_signed_cert.ingressgateway_self_sign_cert.validity_start_time}"
