@@ -38,9 +38,10 @@ The module will create following resource
 - [x] Auto install istio
   - [x] Download from https://github.com/istio/istio/releases
 - [x] Auto install external dns
-- [ ] VPC-native (alias IP)
+- [x] VPC-native (alias IP)
 - [ ] Master authorized networks
-- [ ] Remove chart when disabled
+- [x] Remove chart when disabled
+- [ ] [prometheus-operator](https://github.com/helm/charts/tree/master/stable/prometheus-operator)
 
 ## FAQ
 

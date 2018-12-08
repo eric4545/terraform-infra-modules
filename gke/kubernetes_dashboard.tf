@@ -5,7 +5,7 @@ resource "helm_release" "kubernetes_dashboard" {
   name  = "kubernetes-dashboard"
   chart = "stable/kubernetes-dashboard"
 
-  namespace = "kubernetes-dashboard"
+  namespace = "addons"
   version   = "${var.kubernetes_dashboard_chart_version}"
 
   set {

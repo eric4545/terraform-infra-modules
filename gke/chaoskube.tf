@@ -5,7 +5,7 @@ resource "helm_release" "chaoskube" {
   name  = "chaoskube"
   chart = "stable/chaoskube"
 
-  namespace = "chaoskube"
+  namespace = "addons"
   version   = "v${var.chaoskube_chart_version}"
 
   set {
