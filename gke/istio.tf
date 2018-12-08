@@ -32,9 +32,9 @@ resource "helm_release" "istio" {
   name       = "istio"
   repository = "${helm_repository.istio.metadata.0.name}"
   chart      = "istio"
-
-  namespace = "istio-system"
-  version   = "${var.istio_chart_version}"
+  timeout    = 60
+  namespace  = "istio-system"
+  version    = "${var.istio_chart_version}"
 
   set {
     name  = "tracing.enabled"
