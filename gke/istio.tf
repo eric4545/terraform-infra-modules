@@ -32,7 +32,7 @@ resource "helm_release" "istio" {
   name       = "istio"
   repository = "${helm_repository.istio.metadata.0.name}"
   chart      = "istio"
-  timeout    = 60
+  timeout    = 300
   namespace  = "istio-system"
   version    = "${var.istio_chart_version}"
 
