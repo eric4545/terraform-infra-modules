@@ -69,7 +69,7 @@ resource "null_resource" "external_dns_cluster_issuer" {
 
   provisioner "local-exec" {
     command = <<SCRIPT
-cat <<EOF | kubectl --context="${local.kube_context}" -n cert-manager apply -f -
+cat <<EOF | kubectl --context="${local.kube_context}" -n addons apply -f -
 ---
 apiVersion: v1
 kind: Secret

@@ -5,6 +5,6 @@ resource "helm_release" "cert_manager" {
   name  = "cert-manager"
   chart = "stable/cert-manager"
 
-  namespace = "cert-manager"
+  namespace = "addons"
   version   = "v${var.cert_manager_chart_version}"
 }
