@@ -23,7 +23,7 @@ resource "google_compute_address" "istio_lb" {
 
 resource "helm_repository" "istio" {
   name = "istio"
-  url  = "https://gcsweb.istio.io/gcs/istio-prerelease/daily-build/release-1.1-latest-daily/charts"
+  url  = "https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts"
 }
 
 resource "helm_release" "istio" {
