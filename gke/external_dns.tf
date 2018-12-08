@@ -5,7 +5,7 @@ resource "helm_release" "external_dns" {
   name  = "external-dns"
   chart = "stable/external-dns"
 
-  namespace = "external-dns"
+  namespace = "addons"
   version   = "v${var.external_dns_chart_version}"
 
   set {
