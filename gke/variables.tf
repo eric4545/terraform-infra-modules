@@ -97,17 +97,6 @@ variable "istio_egressgateway_enabled" {
   default     = false
 }
 
-variable "cert_manager_chart_version" {
-  description = "Cert manager chart version, ref: https://github.com/helm/charts/blob/master/stable/cert-manager/Chart.yaml#L2"
-  type        = "string"
-  default     = "0.5.2"
-}
-
-variable "cert_manager_enabled" {
-  description = "Enable Cert manager"
-  default     = true
-}
-
 variable "sealed_secrets_chart_version" {
   description = "Sealed secrets chart version"
   type        = "string"

@@ -1,6 +1,6 @@
 resource "helm_release" "chaoskube" {
   count      = "${var.chaoskube_enabled?1:0}"
-  depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
+  depends_on = ["null_resource.kubectl", "null_resource.install_helm", "helm_release.istio"]
 
   name  = "chaoskube"
   chart = "stable/chaoskube"

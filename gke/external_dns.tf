@@ -1,6 +1,6 @@
 resource "helm_release" "external_dns" {
   count      = "${var.external_dns_enabled?1:0}"
-  depends_on = ["null_resource.kubectl", "null_resource.install_helm"]
+  depends_on = ["null_resource.kubectl", "null_resource.install_helm", "helm_release.istio"]
 
   name  = "external-dns"
   chart = "stable/external-dns"
@@ -65,7 +65,7 @@ resource "helm_release" "external_dns" {
 
 resource "null_resource" "external_dns_cluster_issuer" {
   count      = "${var.external_dns_enabled?1:0}"
-  depends_on = ["null_resource.kubectl", "helm_release.external_dns", "helm_release.cert_manager"]
+  depends_on = ["null_resource.kubectl", "helm_release.external_dns", "helm_release.istio"]
 
   provisioner "local-exec" {
     command = <<SCRIPT

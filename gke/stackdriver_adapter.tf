@@ -1,7 +1,7 @@
 # kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
 
 resource "null_resource" "install_stackdriver_adapter" {
-  depends_on = ["null_resource.kubectl"]
+  depends_on = ["null_resource.kubectl", "helm_release.istio"]
 
   triggers {
     version = "${var.stackdriver_adapter_version}"
