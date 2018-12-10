@@ -52,9 +52,12 @@ resource "helm_release" "external_dns" {
     name  = "extraArgs.cloudflare-proxied"
     value = ""
   }
-
   set {
     name  = "txtPrefix"
+    value = "${local.cluster_name}"
+  }
+  set {
+    name  = "txtOwnerId"
     value = "${local.cluster_name}"
   }
   set {

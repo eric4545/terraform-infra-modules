@@ -5,7 +5,7 @@ data "external" "ipv4_cidr" {
   program = ["/bin/sh", "-c",
     <<SCRIPT
 gcloud --project=${var.gcp_project} container clusters describe ${local.cluster_name} \
-  --region=${var.master_region} \
+  --region=${var.cluster_region} \
   --format=json | jq '{clusterIpv4Cidr ,servicesIpv4Cidr}'
 SCRIPT
     ,
@@ -18,7 +18,7 @@ resource "google_compute_address" "istio_lb" {
   count        = "${var.istio_enabled?1:0}"
   name         = "${local.cluster_name}-istio-gateway-address"
   address_type = "EXTERNAL"
-  region       = "${var.master_region}"
+  region       = "${var.cluster_region}"
 }
 
 resource "null_resource" "install_istio" {

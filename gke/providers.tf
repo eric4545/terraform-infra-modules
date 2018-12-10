@@ -14,10 +14,7 @@ provider "google" {
   project = "${var.gcr_project}"
 }
 
-provider "kubernetes" {
-  version = "~> 1.1"
-  host    = "https://${google_container_cluster.primary.endpoint}"
-}
+# provider "kubernetes" moved to master.tf
 
 provider "external" {
   version = "~> 1.0"

@@ -21,8 +21,8 @@ variable "cluster_name" {
   default     = ""
 }
 
-variable "master_region" {
-  description = "Master GKE region"
+variable "cluster_region" {
+  description = "GKE cluster region"
   default     = "asia-east2"
 }
 
@@ -133,7 +133,7 @@ variable "stackdriver_adapter_enabled" {
 variable "external_dns_chart_version" {
   description = "external-dns chart version, ref: https://github.com/helm/charts/blob/master/stable/external-dns/Chart.yaml#L6"
   type        = "string"
-  default     = "1.1.0"
+  default     = "1.2.0"
 }
 
 variable "external_dns_enabled" {

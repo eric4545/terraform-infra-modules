@@ -1,25 +1,25 @@
-data "google_container_engine_versions" "master_region" {
-  zone = "${var.master_region}"
+data "google_container_engine_versions" "cluster_region" {
+  zone = "${var.cluster_region}"
 }
 
 locals {
   # EG: testing--cluster
-  default_cluster_name = "${var.env}-${var.master_region}-cluster"
+  default_cluster_name = "${var.env}-${var.cluster_region}-cluster"
   subnetwork_name      = "${local.cluster_name}-subnet"
 
   # Use to override default_cluster_name
   cluster_name              = "${var.cluster_name!=""?var.cluster_name:local.default_cluster_name}"
-  kubernetes_master_version = "${var.kubernetes_master_version!=""?var.kubernetes_master_version:data.google_container_engine_versions.master_region.latest_node_version}"
-  kubernetes_worker_version = "${var.kubernetes_worker_version!=""?var.kubernetes_worker_version:data.google_container_engine_versions.master_region.latest_node_version}"
+  kubernetes_master_version = "${var.kubernetes_master_version!=""?var.kubernetes_master_version:data.google_container_engine_versions.cluster_region.latest_node_version}"
+  kubernetes_worker_version = "${var.kubernetes_worker_version!=""?var.kubernetes_worker_version:data.google_container_engine_versions.cluster_region.latest_node_version}"
 
-  kube_context = "gke_${var.gcp_project}_${var.master_region}_${local.cluster_name}"
+  kube_context = "gke_${var.gcp_project}_${var.cluster_region}_${local.cluster_name}"
 }
 
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html
 resource "google_container_cluster" "primary" {
   name               = "${local.cluster_name}"
   min_master_version = "${local.kubernetes_master_version}"
-  region             = "${var.master_region}"
+  region             = "${var.cluster_region}"
 
   # TODO: allow change network
   network                  = "projects/${var.gcp_project}/global/networks/${var.gcp_network}"
@@ -106,6 +106,21 @@ resource "google_container_cluster" "primary" {
   }
 }
 
+data "google_client_config" "default" {}
+
+data "google_container_cluster" "primary" {
+  name = "${local.cluster_name}"
+  region = "${var.cluster_region}"
+}
+
+provider "kubernetes" {
+  load_config_file = false
+
+  host                   = "https://${data.google_container_cluster.primary.endpoint}"
+  token                  = "${data.google_client_config.default.access_token}"
+  cluster_ca_certificate = "${base64decode(data.google_container_cluster.primary.master_auth.0.cluster_ca_certificate)}"
+}
+
 resource "null_resource" "kubectl" {
   depends_on = ["google_container_cluster.primary", "google_container_node_pool.n2_pool"]
 
@@ -115,7 +130,7 @@ resource "null_resource" "kubectl" {
   }
 
   provisioner "local-exec" {
-    command = "gcloud --project=${var.gcp_project} container clusters get-credentials ${local.cluster_name} --region=${var.master_region}"
+    command = "gcloud --project=${var.gcp_project} container clusters get-credentials ${local.cluster_name} --region=${var.cluster_region}"
   }
 }
 

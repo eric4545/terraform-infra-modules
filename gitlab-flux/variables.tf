@@ -1,3 +1,16 @@
+variable "gcp_project" {
+  description = "Google cloud project for resource create in"
+}
+
+variable "cluster_name" {
+  type        = "string"
+  description = "Set cluster_name "
+}
+
+variable "cluster_region" {
+  description = "Master GKE region"
+}
+
 variable "gitlab_token" {
   description = "GitLab personal access token"
 }

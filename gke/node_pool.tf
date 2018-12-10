@@ -7,9 +7,9 @@ resource "random_string" "n2_pool_id" {
 
 resource "google_container_node_pool" "n2_pool" {
   # If left blank, Terraform will auto-generate a unique name
-  name    = "n2-${random_string.n2_pool_id.result}"
+  # name    = "n2-${random_string.n2_pool_id.result}"
   cluster = "${google_container_cluster.primary.name}"
-  region  = "${var.master_region}"
+  region  = "${var.cluster_region}"
   version = "${local.kubernetes_worker_version}"
 
   initial_node_count = 1
