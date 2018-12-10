@@ -1,5 +1,29 @@
 locals {
   flux_release_name = "${replace(var.gitlab_project,"/","-")}-flux"
+  secret_name       = "flux-ssh-identity-secret"
+}
+
+resource "tls_private_key" "flux_ssh_identity" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
+resource "kubernetes_secret" "flux_ssh_identity" {
+  metadata {
+    name      = "${local.secret_name}"
+    namespace = "flux"
+  }
+
+  data {
+    identity = "${tls_private_key.ssh_identity.private_key_pem}"
+  }
+}
+
+resource "gitlab_deploy_key" "deploy_key" {
+  project  = "${var.gitlab_project}"
+  title    = "${local.flux_release_name} flux deploy key"
+  key      = "${tls_private_key.ssh_identity.public_key_openssh}"
+  can_push = true
 }
 
 resource "helm_repository" "weaveworks" {
@@ -69,23 +93,9 @@ resource "helm_release" "flux" {
     name  = "helmOperator.tillerNamespace"
     value = "${var.tiller_namespace}"
   }
-}
 
-data "external" "flux_ssh_key" {
-  depends_on = ["helm_release.flux"]
-
-  program = ["/bin/sh", "-c",
-    <<SCRIPT
-SSH_KEY=$(fluxctl identity --k8s-fwd-ns=flux) && \
-echo "{\"key\":\"$SSH_KEY\"}"
-SCRIPT
-    ,
-  ]
-}
-
-resource "gitlab_deploy_key" "deploy_key" {
-  project  = "${var.gitlab_project}"
-  title    = "${local.flux_release_name} flux deploy key"
-  key      = "${lookup(data.external.flux_ssh_key.result,"key")}"
-  can_push = true
+  set {
+    name  = "git.secretName"
+    value = "${local.secret_name}"
+  }
 }
