@@ -109,11 +109,12 @@ resource "google_container_cluster" "primary" {
 data "google_client_config" "default" {}
 
 data "google_container_cluster" "primary" {
-  name = "${local.cluster_name}"
+  name   = "${local.cluster_name}"
   region = "${var.cluster_region}"
 }
 
 provider "kubernetes" {
+  version          = "~> 1.4"
   load_config_file = false
 
   host                   = "https://${data.google_container_cluster.primary.endpoint}"

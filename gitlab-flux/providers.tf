@@ -16,6 +16,7 @@ data "google_container_cluster" "primary" {
 }
 
 provider "kubernetes" {
+  version          = "~> 1.4"
   load_config_file = false
 
   host                   = "https://${data.google_container_cluster.primary.endpoint}"
