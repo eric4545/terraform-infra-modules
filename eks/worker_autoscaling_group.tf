@@ -1,10 +1,10 @@
 resource "aws_autoscaling_group" "worker" {
   desired_capacity     = 2
   launch_configuration = "${aws_launch_configuration.worker.id}"
-  max_size             = 2
-  min_size             = 1
+  max_size             = 3
+  min_size             = 2
   name                 = "${var.env}-eks"
-  vpc_zone_identifier  = ["${aws_subnet.eks.*.id}"]
+  vpc_zone_identifier  = ["${var.private_subnet_ids}"]
 
   tag {
     key                 = "Name"

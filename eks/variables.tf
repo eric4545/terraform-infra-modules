@@ -22,7 +22,19 @@ variable "version" {
   default     = ""
 }
 
-variable "num_zones" {
+variable "office_ip" {
   type    = "string"
-  default = 3
+  default = "220.246.51.142/32"
+}
+
+variable "vpc_id" {
+  type = "string"
+}
+
+variable "public_subnet_ids" {
+  type = "list"
+}
+
+variable "private_subnet_ids" {
+  type = "list"
 }
