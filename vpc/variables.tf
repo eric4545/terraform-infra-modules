@@ -21,7 +21,7 @@ variable "office_ip" {
 
 # variable "vpc_tags" {}
 
-# variable "eks_cluster_names" {
-#   type        = "list"
-#   description = "List of EKS cluster name to tag vpc"
-# }
+variable "eks_cluster_name" {
+  type        = "string"
+  description = "EKS cluster name to tag vpc"
+}

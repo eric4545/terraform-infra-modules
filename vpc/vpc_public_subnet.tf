@@ -9,7 +9,8 @@ resource "aws_subnet" "public" {
     map(
       "Name", "${var.env}",
       "env", "${var.env}",
-      "k8s.io/cluster-autoscaler/enabled", ""
+      "k8s.io/cluster-autoscaler/enabled", "",
+      "kubernetes.io/cluster/${var.eks_cluster_name}", "shared"
     )
   }"
 }

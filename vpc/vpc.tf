@@ -6,6 +6,7 @@ resource "aws_vpc" "main" {
     map(
      "Name", "${var.env}",
      "env", "${var.env}",
+     "kubernetes.io/cluster/${var.eks_cluster_name}", "shared"
     )
   }"
 }
