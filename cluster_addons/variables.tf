@@ -106,3 +106,14 @@ variable "aws_region" {
   description = "AWS region for external-dns manage route53"
   default     = ""
 }
+
+variable "kube_spot_termination_notice_handler_chart_version" {
+  description = "kube-spot-termination-notice-handler chart version, ref: https://github.com/helm/charts/blob/master/incubator/kube-spot-termination-notice-handler/Chart.yaml#L4"
+  type        = "string"
+  default     = "0.4.0"
+}
+
+variable "kube_spot_termination_notice_handler_enabled" {
+  description = "Enable kube-spot-termination-notice-handler"
+  default     = true
+}
