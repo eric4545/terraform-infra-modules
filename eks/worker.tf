@@ -70,3 +70,13 @@ resource "aws_launch_configuration" "worker" {
     create_before_destroy = true
   }
 }
+
+resource "null_resource" "install_aws_vpc_cni" {
+  triggers = {
+    version = "${var.aws_cni_version}"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/${var.aws_cni_version}/aws-k8s-cni.yaml"
+  }
+}

@@ -38,3 +38,8 @@ variable "public_subnet_ids" {
 variable "private_subnet_ids" {
   type = "list"
 }
+
+variable "aws_cni_version" {
+  type    = "string"
+  default = "v1.3"
+}
