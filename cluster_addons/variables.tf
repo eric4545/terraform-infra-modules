@@ -64,3 +64,8 @@ variable "node_problem_detector_enabled" {
 }
 
 
+
+variable "aws_region" {
+  description = "AWS region for external-dns manage route53"
+  default     = ""
+}

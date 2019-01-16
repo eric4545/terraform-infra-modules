@@ -4,7 +4,7 @@ resource "helm_release" "cluster_autoscaler" {
   name      = "cluster-autoscaler"
   namespace = "kube-system"
   chart     = "stable/cluster-autoscaler"
-  version = "${var.cluster_autoscaler_chart_version}"
+  version   = "${var.cluster_autoscaler_chart_version}"
 
   set {
     name  = "autoDiscovery.clusterName"
@@ -14,6 +14,11 @@ resource "helm_release" "cluster_autoscaler" {
   set {
     name  = "cloudProvider"
     value = "aws"
+  }
+
+  set {
+    name  = "awsRegion"
+    value = "${var.aws_region}"
   }
 
   set {
