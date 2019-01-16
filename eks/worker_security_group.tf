@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "worker_to_worker" {
 
 resource "aws_security_group_rule" "worker_from_master" {
   description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
-  from_port                = 1025
+  from_port                = 0
   protocol                 = "tcp"
   security_group_id        = "${aws_security_group.worker.id}"
   source_security_group_id = "${aws_security_group.master.id}"

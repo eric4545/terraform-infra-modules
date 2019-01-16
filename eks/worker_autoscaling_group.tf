@@ -14,7 +14,7 @@ resource "aws_autoscaling_group" "worker" {
 
   tag {
     key                 = "kubernetes.io/cluster/${var.cluster_name}"
-    value               = "owned"
+    value               = ""
     propagate_at_launch = true
   }
 
