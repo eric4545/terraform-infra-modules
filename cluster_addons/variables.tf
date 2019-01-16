@@ -3,6 +3,29 @@ variable "kubernetes_cluster_ca_certificate" {}
 variable "kubernetes_token" {}
 variable "kubernetes_cluster_name" {}
 
+variable "istio_chart_version" {
+  description = "Istio version to be install, Ref tag: https://github.com/istio/istio/releases"
+  type        = "string"
+  default     = "1.1.0"
+}
+
+variable "istio_version" {
+  description = "Istio version to be install, Ref tag: https://github.com/istio/istio/releases"
+  type        = "string"
+  default     = "1.0.5"
+}
+
+variable "istio_enabled" {
+  description = "Enable istio service mesh"
+  default     = true
+}
+
+variable "istio_egressgateway_enabled" {
+  type        = "string"
+  description = "Enable istio egress gateway"
+  default     = "false"
+}
+
 variable "cluster_autoscaler_chart_version" {
   description = "Cert manager chart version, ref: https://github.com/helm/charts/blob/master/stable/cluster-autoscaler/Chart.yaml#L5"
   type        = "string"
