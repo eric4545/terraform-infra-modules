@@ -63,7 +63,21 @@ variable "node_problem_detector_enabled" {
   default     = false
 }
 
+variable "external_dns_chart_version" {
+  description = "external-dns chart version, ref: https://github.com/helm/charts/blob/master/stable/external-dns/Chart.yaml#L6"
+  type        = "string"
+  default     = "1.3.0"
+}
 
+variable "external_dns_enabled" {
+  description = "Enable external-dns"
+  default     = true
+}
+
+variable "external_dns_chartlog_level" {
+  description = "Verbosity of the External DNS logs (options: panic, debug, info, warn, error, fatal)"
+  default     = "info"
+}
 
 variable "aws_region" {
   description = "AWS region for external-dns manage route53"
