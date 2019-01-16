@@ -17,6 +17,19 @@ data "external" "aws_iam_authenticator" {
   program = ["sh", "-c", "aws-iam-authenticator token -i ${var.cluster_name} | jq -r -c .status"]
 }
 
+resource "null_resource" "kubectl" {
+  depends_on = ["aws_eks_cluster.primary"]
+
+  triggers = {
+    # A hack to run everytime
+    timestamp = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --name ${var.cluster_name}"
+  }
+}
+
 provider "kubernetes" {
   version                = "~> 1.4"
   host                   = "${aws_eks_cluster.primary.endpoint}"
