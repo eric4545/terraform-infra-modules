@@ -35,15 +35,15 @@ resource "helm_release" "external_dns" {
     value = "istio-gateway"
   }
 
-#   set {
-#     name  = "txtPrefix"
-#     value = "${var.cluster_name}"
-#   }
+  set {
+    name  = "txtPrefix"
+    value = "${var.kubernetes_cluster_name}"
+  }
 
-#   set {
-#     name  = "txtOwnerId"
-#     value = "${var.cluster_name}"
-#   }
+  set {
+    name  = "txtOwnerId"
+    value = "${var.kubernetes_cluster_name}"
+  }
 
   set {
     name  = "logLevel"
