@@ -1,5 +1,5 @@
 resource "helm_release" "chaoskube" {
-  count = "${var.chaoskube_enabled?1:0}"
+  count = "${var.chaoskube_enabled}"
 
   name      = "chaoskube"
   chart     = "stable/chaoskube"

@@ -1,5 +1,5 @@
 resource "helm_release" "kubernetes_dashboard" {
-  count = "${var.kubernetes_dashboard_enabled?1:0}"
+  count = "${var.kubernetes_dashboard_enabled}"
 
   name      = "kubernetes-dashboard"
   namespace = "addons"

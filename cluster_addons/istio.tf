@@ -1,5 +1,5 @@
 resource "null_resource" "install_istio" {
-  count = "${var.istio_enabled?1:0}"
+  count = "${var.istio_enabled}"
 
   triggers = {
     version = "${var.istio_version}"

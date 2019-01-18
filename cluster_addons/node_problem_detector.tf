@@ -1,5 +1,5 @@
 resource "helm_release" "node_problem_detector" {
-  count = "${var.node_problem_detector_enabled?1:0}"
+  count = "${var.node_problem_detector_enabled}"
 
   name      = "node-problem-detector"
   namespace = "kube-system"

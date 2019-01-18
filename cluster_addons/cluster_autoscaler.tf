@@ -1,5 +1,5 @@
 resource "helm_release" "cluster_autoscaler" {
-  count = "${var.cluster_autoscaler_enabled?1:0}"
+  count = "${var.cluster_autoscaler_enabled}"
 
   name      = "cluster-autoscaler"
   namespace = "kube-system"

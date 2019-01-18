@@ -1,5 +1,5 @@
 resource "helm_release" "external_dns" {
-  count      = "${var.external_dns_enabled?1:0}"
+  count      = "${var.external_dns_enabled}"
 
   name      = "external-dns"
   chart     = "stable/external-dns"

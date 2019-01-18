@@ -1,5 +1,5 @@
 resource "helm_release" "kube_spot_termination_notice_handler" {
-  count = "${var.kube_spot_termination_notice_handler_enabled?1:0}"
+  count = "${var.kube_spot_termination_notice_handler_enabled}"
 
   name       = "kube-spot-termination-notice-handler"
   namespace  = "kube-system"

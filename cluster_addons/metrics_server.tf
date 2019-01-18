@@ -1,5 +1,5 @@
 resource "helm_release" "metrics_server" {
-  count = "${var.metrics_server_enabled?1:0}"
+  count = "${var.metrics_server_enabled}"
 
   name      = "metrics-server"
   namespace = "kube-system"
