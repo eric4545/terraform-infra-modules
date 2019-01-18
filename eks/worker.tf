@@ -59,10 +59,10 @@ resource "aws_launch_configuration" "worker" {
   name_prefix                 = "${var.env}-eks-worker"
   iam_instance_profile        = "${aws_iam_instance_profile.worker.name}"
   image_id                    = "${data.aws_ami.eks_worker.id}"
-  instance_type               = "t3.large"                                # TODO: Allow change worker instance_type
+  instance_type               = "t3.medium"                                # TODO: Allow change worker instance_type
   security_groups             = ["${aws_security_group.worker.id}"]
   user_data_base64            = "${base64encode(local.node_user_data)}"
-  spot_price                  = "0.05"
+  spot_price                  = "0.03"
   associate_public_ip_address = false
   key_name                    = "${aws_key_pair.debugger.key_name}"
 
