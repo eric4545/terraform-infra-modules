@@ -37,6 +37,16 @@ variable "cluster_autoscaler_enabled" {
   default     = true
 }
 
+variable "cert_manager_chart_version" {
+  description = "Cert manager chart version, ref: https://github.com/helm/charts/blob/master/stable/cert-manager/Chart.yaml#L2"
+  type        = "string"
+  default     = "v0.5.2"
+}
+
+variable "cert_manager_enabled" {
+  description = "Enable Cert manager"
+  default     = true
+}
 variable "kubernetes_dashboard_chart_version" {
   description = "kubernetes-dashboard chart version, ref: https://github.com/helm/charts/blob/master/stable/kubernetes-dashboard/Chart.yaml#L2"
   type        = "string"
