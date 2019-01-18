@@ -16,6 +16,12 @@ variable "cluster_name" {
   default     = "terraform-eks"
 }
 
+variable "master_version" {
+  type        = "string"
+  description = "(Optional) Desired Kubernetes master version. If you do not specify a value, the default version is used."
+  default     = "1.11"
+}
+
 variable "worker_version" {
   type        = "string"
   description = "(Optional) Desired Kubernetes worker version. If you do not specify a value, the default version is used."
