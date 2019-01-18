@@ -21,7 +21,7 @@ data "aws_ami" "eks_worker" {
 
   filter {
     name   = "name"
-    values = ["amazon-eks-node-*"]
+    values = ["amazon-eks-node-${var.worker_version}-*"]
   }
 }
 
