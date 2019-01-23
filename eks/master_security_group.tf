@@ -22,7 +22,7 @@ resource "aws_security_group" "master" {
 #           to the Kubernetes. You will need to replace A.B.C.D below with
 #           your real IP. Services like icanhazip.com can help you find this.
 resource "aws_security_group_rule" "office_to_master_https" {
-  cidr_blocks       = ["${var.office_ip}"]
+  cidr_blocks       = ["${var.whitelist_ip}"]
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "office_to_master_https" {
   type              = "ingress"
 }
 resource "aws_security_group_rule" "office_to_worker_ssh" {
-  cidr_blocks       = ["${var.office_ip}"]
+  cidr_blocks       = ["${var.whitelist_ip}"]
   description       = "Allow workstation to ssh to the worker"
   from_port         = 22
   protocol          = "tcp"
