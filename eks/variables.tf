@@ -28,9 +28,8 @@ variable "worker_version" {
   default     = "1.11"
 }
 
-variable "office_ip" {
+variable "whitelist_ip" {
   type    = "string"
-  default = "220.246.51.142/32"
 }
 
 variable "vpc_id" {
