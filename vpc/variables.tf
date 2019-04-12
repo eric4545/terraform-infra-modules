@@ -24,4 +24,5 @@ variable "office_ip" {
 variable "eks_cluster_name" {
   type        = "string"
   description = "EKS cluster name to tag vpc"
+  default     = ""
 }
